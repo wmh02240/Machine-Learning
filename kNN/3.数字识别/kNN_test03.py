@@ -87,7 +87,7 @@ def handwritingClassTest():
 	#测试集的Labels
 	hwLabels = []
 	#返回trainingDigits目录下的文件名
-	trainingFileList = listdir('trainingDigits')
+	trainingFileList = listdir('./trainingDigits')
 	#返回文件夹下文件的个数
 	m = len(trainingFileList)
 	#初始化训练的Mat矩阵,测试集
