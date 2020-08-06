@@ -2,6 +2,7 @@
 import operator
 import pickle
 from math import log
+import os
 
 import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
@@ -199,7 +200,6 @@ def createTree(dataSet, labels, featLabels):
     for value in uniqueVals:  # 遍历特征，创建决策树。
         subLabels = labels[:]
         myTree[bestFeatLabel][value] = createTree(splitDataSet(dataSet, bestFeat, value), subLabels, featLabels)
-
     return myTree
 
 
@@ -283,7 +283,7 @@ Modify:
 
 def plotNode(nodeTxt, centerPt, parentPt, nodeType):
     arrow_args = dict(arrowstyle="<-")  # 定义箭头格式
-    font = FontProperties(fname=r"c:\windows\fonts\simsunb.ttf", size=14)  # 设置中文字体
+    font = FontProperties(fname=r"simsun.ttc", size=14)  # 设置中文字体
     createPlot.ax1.annotate(nodeTxt, xy=parentPt, xycoords='axes fraction',  # 绘制结点
                             xytext=centerPt, textcoords='axes fraction',
                             va="center", ha="center", bbox=nodeType, arrowprops=arrow_args, FontProperties=font)
@@ -455,9 +455,19 @@ def grabTree(filename):
 
 
 if __name__ == '__main__':
+    #为了节省计算时间，在每次执行分类时调用已经构造好的决策树。需要使用Python模块pickle序列化对象
+
+    # myTree = grabTree('classifierStorage.txt')
+    # print("决策树存在并且读取", myTree)
+
     dataSet, labels = createDataSet()
+    print(dataSet, labels)
     featLabels = []
-    myTree = createTree(dataSet, labels, featLabels)
+    myTree= createTree(dataSet, labels, featLabels)
+    storeTree(myTree, 'classifierStorage.txt')
+
+
+    # 决策树的可视化并预测
     createPlot(myTree)
     testVec = [0, 1]  # 测试数据
     result = classify(myTree, featLabels, testVec)

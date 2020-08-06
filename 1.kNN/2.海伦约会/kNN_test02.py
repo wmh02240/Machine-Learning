@@ -7,23 +7,23 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.font_manager import FontProperties
 
-"""
-函数说明:kNN算法,分类器
-
-Parameters:
-	inX - 用于分类的数据(测试集)
-	dataSet - 用于训练的数据(训练集)
-	labes - 分类标签
-	k - kNN算法参数,选择距离最小的k个点
-Returns:
-	sortedClassCount[0][0] - 分类结果
-
-Modify:
-	2017-03-24
-"""
-
 
 def classify0(inX, dataSet, labels, k):
+    """
+    函数说明:kNN算法,分类器
+
+    Parameters:
+    	inX - 用于分类的数据(测试集)
+    	dataSet - 用于训练的数据(训练集)
+    	labes - 分类标签
+    	k - kNN算法参数,选择距离最小的k个点
+    Returns:
+    	sortedClassCount[0][0] - 分类结果
+
+    Modify:
+    	2017-03-24
+    """
+
     # numpy函数shape[0]返回dataSet的行数
     dataSetSize = dataSet.shape[0]
     # 在列向量方向上重复inX共1次(横向),行向量方向上重复inX共dataSetSize次(纵向)
@@ -54,21 +54,20 @@ def classify0(inX, dataSet, labels, k):
     return sortedClassCount[0][0]
 
 
-"""
-函数说明:打开并解析文件，对数据进行分类：1代表不喜欢,2代表魅力一般,3代表极具魅力
-
-Parameters:
-	filename - 文件名
-Returns:
-	returnMat - 特征矩阵
-	classLabelVector - 分类Label向量
-
-Modify:
-	2017-03-24
-"""
-
-
 def file2matrix(filename):
+    """
+    函数说明:打开并解析文件，对数据进行分类：1代表不喜欢,2代表魅力一般,3代表极具魅力
+
+    Parameters:
+    	filename - 文件名
+    Returns:
+    	returnMat - 特征矩阵
+    	classLabelVector - 分类Label向量
+
+    Modify:
+    	2017-03-24
+    """
+
     # 打开文件,此次应指定编码，
 
     fr = open(filename, 'r', encoding='utf-8')
@@ -104,22 +103,16 @@ def file2matrix(filename):
     return returnMat, classLabelVector
 
 
-"""
-函数说明:可视化数据
-
-Parameters:
-	datingDataMat - 特征矩阵
-	datingLabels - 分类Label
-Returns:
-	无
-Modify:
-	2017-03-24
-"""
-
-
 def showdatas(datingDataMat, datingLabels):
+    """
+    函数说明:可视化数据
+    :param datingDataMat: - 特征矩阵
+    :param datingLabels: - 分类Label
+    :return:
+    """
+
     # 设置汉字格式
-    font = FontProperties(fname=r"c:\windows\fonts\simsunb.ttf", size=14)  ##需要查看自己的电脑是否会包含该字体
+    font = FontProperties(fname=r"simsun.ttc", size=14)  ##需要查看自己的电脑是否会包含该字体
     # 将fig画布分隔成1行1列,不共享x轴和y轴,fig画布的大小为(13,8)
     # 当nrow=2,nclos=2时,代表fig画布被分为四个区域,axs[0][0]表示第一行第一个区域
     fig, axs = plt.subplots(nrows=2, ncols=2, sharex=False, sharey=False, figsize=(13, 8))
@@ -163,12 +156,9 @@ def showdatas(datingDataMat, datingLabels):
     plt.setp(axs2_xlabel_text, size=7, weight='bold', color='black')
     plt.setp(axs2_ylabel_text, size=7, weight='bold', color='black')
     # 设置图例
-    didntLike = mlines.Line2D([], [], color='black', marker='.',
-                              markersize=6, label='didntLike')
-    smallDoses = mlines.Line2D([], [], color='orange', marker='.',
-                               markersize=6, label='smallDoses')
-    largeDoses = mlines.Line2D([], [], color='red', marker='.',
-                               markersize=6, label='largeDoses')
+    didntLike = mlines.Line2D([], [], color='black', marker='.', markersize=6, label='didntLike')
+    smallDoses = mlines.Line2D([], [], color='orange', marker='.', markersize=6, label='smallDoses')
+    largeDoses = mlines.Line2D([], [], color='red', marker='.',  markersize=6, label='largeDoses')
     # 添加图例
     axs[0][0].legend(handles=[didntLike, smallDoses, largeDoses])
     axs[0][1].legend(handles=[didntLike, smallDoses, largeDoses])
@@ -177,22 +167,22 @@ def showdatas(datingDataMat, datingLabels):
     plt.show()
 
 
-"""
-函数说明:对数据进行归一化
-
-Parameters:
-	dataSet - 特征矩阵
-Returns:
-	normDataSet - 归一化后的特征矩阵
-	ranges - 数据范围
-	minVals - 数据最小值
-
-Modify:
-	2017-03-24
-"""
-
 
 def autoNorm(dataSet):
+    """
+    函数说明:对数据进行归一化
+
+    Parameters:
+    	dataSet - 特征矩阵
+    Returns:
+    	normDataSet - 归一化后的特征矩阵
+    	ranges - 数据范围
+    	minVals - 数据最小值
+
+    Modify:
+    	2017-03-24
+    """
+
     # 获得数据的最小值
     minVals = dataSet.min(0)
     maxVals = dataSet.max(0)
@@ -210,21 +200,21 @@ def autoNorm(dataSet):
     return normDataSet, ranges, minVals
 
 
-"""
-函数说明:分类器测试函数
-取百分之十的数据作为测试数据，检测分类器的正确性
-
-Parameters:
-	无
-Returns:
-	无
-
-Modify:
-	2017-03-24
-"""
-
 
 def datingClassTest():
+    """
+    函数说明:分类器测试函数
+    取百分之十的数据作为测试数据，检测分类器的正确性
+
+    Parameters:
+    	无
+    Returns:
+    	无
+
+    Modify:
+    	2017-03-24
+    """
+
     # 打开的文件名
     filename = "datingTestSet.txt"
     # 将返回的特征矩阵和分类向量分别存储到datingDataMat和datingLabels中
@@ -250,20 +240,20 @@ def datingClassTest():
     print("错误率:%f%%" % (errorCount / float(numTestVecs) * 100))
 
 
-"""
-函数说明:通过输入一个人的三维特征,进行分类输出
-
-Parameters:
-	无
-Returns:
-	无
-
-Modify:
-	2017-03-24
-"""
-
 
 def classifyPerson():
+    """
+    函数说明:通过输入一个人的三维特征,进行分类输出
+
+    Parameters:
+    	无
+    Returns:
+    	无
+
+    Modify:
+    	2017-03-24
+    """
+
     # 输出结果
     resultList = ['讨厌', '有些喜欢', '非常喜欢']
     # 三维特征用户输入
@@ -286,16 +276,28 @@ def classifyPerson():
     print("你可能%s这个人" % (resultList[classifierResult - 1]))
 
 
-"""
-函数说明:main函数
-
-Parameters:
-	无
-Returns:
-	无
-
-Modify:
-	2017-03-24
-"""
 if __name__ == '__main__':
-    datingClassTest()
+
+    is_analysis_data = True
+    is_data_visualization = True
+    is_predict = True
+    is_data_class_test = True
+
+    if is_analysis_data:
+        # 打开的文件名
+        filename = "datingTestSet.txt"
+        # 打开并处理数据
+        datingDataMat, datingLabels = file2matrix(filename)
+        print(datingDataMat)
+        print(datingLabels)
+
+    if is_data_visualization:
+        # 打开并处理数据
+        # datingDataMat, datingLabels = file2matrix(filename)
+        showdatas(datingDataMat, datingLabels)
+
+    if is_data_class_test:
+        datingClassTest()
+
+    if is_predict:
+        classifyPerson()

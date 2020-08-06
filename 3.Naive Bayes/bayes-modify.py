@@ -170,18 +170,17 @@ def textParse(bigString):  # 将字符串转换为字符列表
 
 
 """
-函数说明:测试朴素贝叶斯分类器
-
-Parameters:
-    无
-Returns:
-    无
-Author:
-    Jack Cui
-Blog:
-    http://blog.csdn.net/c406495762
-Modify:
-    2017-08-14
+    函数说明:测试朴素贝叶斯分类器
+    Parameters:
+        无
+    Returns:
+        无
+    Author:
+        Jack Cui
+    Blog:
+        http://blog.csdn.net/c406495762
+    Modify:
+        2017-08-14
 """
 
 

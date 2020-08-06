@@ -111,6 +111,7 @@ def handwritingClassTest():
         hwLabels.append(classNumber)
         # 将每一个文件的1x1024数据存储到trainingMat矩阵中
         trainingMat[i, :] = img2vector('trainingDigits/%s' % (fileNameStr))
+
     # 返回testDigits目录下的文件名
     testFileList = listdir('testDigits')
     # 错误检测计数

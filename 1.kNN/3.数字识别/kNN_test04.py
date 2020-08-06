@@ -69,6 +69,7 @@ def handwritingClassTest():
     neigh = kNN(n_neighbors=3, algorithm='auto')
     # 拟合模型, trainingMat为训练矩阵,hwLabels为对应的标签
     neigh.fit(trainingMat, hwLabels)
+
     # 返回testDigits目录下的文件列表
     testFileList = listdir('testDigits')
     # 错误检测计数
@@ -86,6 +87,7 @@ def handwritingClassTest():
         # 获得预测结果
         # classifierResult = classify0(vectorUnderTest, trainingMat, hwLabels, 3)
         classifierResult = neigh.predict(vectorUnderTest)
+
         print("分类返回结果为%d\t真实结果为%d" % (classifierResult, classNumber))
         if (classifierResult != classNumber):
             errorCount += 1.0
