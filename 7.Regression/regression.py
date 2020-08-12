@@ -18,7 +18,7 @@ def loadDataSet(fileName):
         2017-11-20
     """
     numFeat = len(open(fileName).readline().split('\t')) - 1
-    xArr = [];
+    xArr = []
     yArr = []
     fr = open(fileName)
     for line in fr.readlines():
